@@ -3,6 +3,8 @@ const express = require("express");
 const router = express.Router();
 const mysql = require("mysql");
 
+
+
 // Create a connection to MySQL
 const connection = mysql.createConnection({
   host: "localhost",
@@ -20,19 +22,82 @@ connection.connect((err) => {
 });
 
 // GET all products
-router.get("/", (req, res) => {
-  const query = "SELECT * FROM products";
-  
-  connection.query(query, (error, results) => {
-    if (error) {
-      console.error("Error retrieving products:", error);
-      res.status(500).json({ error: "Failed to retrieve products" });
-      return;
-    }
+// router.get("/", (req, res) => {
+//   const query = "SELECT * FROM products";
 
-    res.json(results);
+//   connection.query(query, (error, results) => {
+//     if (error) {
+//       console.error("Error retrieving products:", error);
+//       res.status(500).json({ error: "Failed to retrieve products" });
+//       return;
+//     }
+
+//     res.json(results);
+//   });
+// });
+
+// GET all products
+router.get("/", (req, res) => {
+    const query = "SELECT * FROM products";
+  
+    connection.query(query, (error, results) => {
+      if (error) {
+        console.error("Error retrieving products:", error);
+        res.status(500).json({ error: "Failed to retrieve products" });
+        return;
+      }
+  
+      const productsWithHTML = results.map((product) => ({
+        name: product.name,
+        price: product.price,
+        quantity: product.quantity,
+        image: product.image,
+        discount: product.discount,
+        description: product.description,
+        html: getProductHTML(product), // Generate HTML structure for the product
+      }));
+  
+      res.json(productsWithHTML);
+    });
   });
-});
+  
+
+  function getProductHTML(product) {
+    const { name, price, quantity, image, discount, description } = product;
+  
+    return `
+      <div class="box">
+        ${discount > 0 ? `<span class="discount">-${discount}%</span>` : ''}
+        <div class="icon">
+            <a href="#" class="fas fa-eye"></a>
+            <a href="#" class="fas fa-edit"></a>
+            <a href="#" class="fas fa-trash"></a>
+
+
+        </div>
+        <img src="assets/img/${image}" alt="${name}">
+        <h3>${name}</h3>
+        <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+        </div>
+        <div class="price">
+            $${price} <span>${price}</span>
+        </div>
+        <div class="quantity">
+            <span>quantity :</span>
+            <input type="number" min="1" max="100" value="${quantity}" />
+            <span> /kg</span>
+        </div>
+        <a href="#" class="btn">add to cart</a>
+      </div>
+    `;
+  }
+
+  
 
 // Get a specific product by ID
 router.get("/:id", (req, res) => {
@@ -143,4 +208,5 @@ router.put('/:id', (req, res) => {
   });
   
 
+  
 module.exports = router;
