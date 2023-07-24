@@ -1,0 +1,19 @@
+install the client side : 
+    npx create-react-app .
+
+To start the application:
+    npm start
+
+to set root for each page we should install :
+    npm install react-router-dom
+
+change the app.js file
+
+create folder "page" and put all pages you need "add.jsx" & "update.jsx"...
+    Create a functional component: Type "rafce" and then press Tab.
+
+then set the root of creation pages in the "app.js" file
+
+
+install axios library in server side for api request
+npm i axios

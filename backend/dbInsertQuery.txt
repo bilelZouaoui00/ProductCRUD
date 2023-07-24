@@ -1,0 +1,26 @@
+INSERT INTO products (name, price, quantity, image, discount, description)
+VALUES ('Organic Apples', 2.99, 10, 'apple.jpg', 0, 'Fresh and nutritious organic apples from local farms.');
+
+INSERT INTO products (name, price, quantity, image, discount, description)
+VALUES ('Organic Bananas', 1.49, 15, 'banana.jpg', 0, 'Certified organic bananas, rich in potassium and vitamins.');
+
+INSERT INTO products (name, price, quantity, image, discount, description)
+VALUES ('Organic Spinach', 3.99, 5, 'spinach.jpg', 0, 'Tender and vibrant organic spinach leaves, perfect for salads and smoothies.');
+
+INSERT INTO products (name, price, quantity, image, discount, description)
+VALUES ('Organic Quinoa', 4.99, 8, 'quinoa.jpg', 0, 'High-quality organic quinoa grains, a complete protein source.');
+
+INSERT INTO products (name, price, quantity, image, discount, description)
+VALUES ('Organic Eggs', 3.49, 12, 'eggs.jpg', 0, 'Farm-fresh organic eggs, sourced from free-range hens.');
+
+INSERT INTO products (name, price, quantity, image, discount, description)
+VALUES ('Organic Tomatoes', 2.49, 7, 'tomatoes.jpg', 0, 'Plump and juicy organic tomatoes, hand-picked for maximum flavor.');
+
+INSERT INTO products (name, price, quantity, image, discount, description)
+VALUES ('Organic Almonds', 6.99, 3, 'almonds.jpg', 0, 'Premium organic almonds, a nutritious and versatile snack.');
+
+INSERT INTO products (name, price, quantity, image, discount, description)
+VALUES ('Organic Olive Oil', 9.99, 9, 'olive_oil.jpg', 0, 'Cold-pressed organic olive oil, perfect for cooking and dressing.');
+
+INSERT INTO products (name, price, quantity, image, discount, description)
+VALUES ('Organic Honey', 7.99, 6, 'honey.jpg', 0, 'Pure and natural organic honey, harvested from local bee farms.');
