@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Add = () => {
-  const [book, setBook] = useState({
+  const [product, setProduct] = useState({
     name: "",
     price: null,
     quantity: null,
@@ -12,29 +12,28 @@ const Add = () => {
     discount: null,
     description: "",
   });
-  const [error,setError] = useState(false)
+  const [error, setError] = useState(false);
 
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setBook((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setProduct((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+
+  // console.log(product);
 
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8000/products", book);
+      await axios.post("http://localhost:8000/products", product);
       navigate("/");
     } catch (err) {
       console.log(err);
-      setError(true)
+      console.log(err.message); // This logs the error message from Axios
+      setError(true);
     }
   };
 
-
-
-
-  
   return (
     <section className="products" id="products">
       <h1 className="heading">
@@ -53,6 +52,8 @@ const Add = () => {
                   <input
                     type="text"
                     autoComplete="off"
+                    name="name"
+                    onChange={handleChange}
                     placeholder="Enter product name"
                   />
                   <i className="fas fa-box"></i>
@@ -60,8 +61,10 @@ const Add = () => {
                 <div className="groupe">
                   <label>Price</label>
                   <input
-                    type="text"
+                    type="number"
                     autoComplete="off"
+                    name="price"
+                    onChange={handleChange}
                     placeholder="Enter price"
                   />
                   <i className="fas fa-money-bill"></i>
@@ -69,8 +72,10 @@ const Add = () => {
                 <div className="groupe">
                   <label>Quantity</label>
                   <input
-                    type="text"
+                    type="number"
                     autoComplete="off"
+                    name="quantity"
+                    onChange={handleChange}
                     placeholder="Enter quantity"
                   />
                   <i className="fas fa-sort-numeric-up"></i>
@@ -81,16 +86,18 @@ const Add = () => {
                     type="text"
                     autoComplete="off"
                     name="image"
-                    placeholder="Enter image URL"
+                    placeholder="Enter your image URL"
+                    onChange={handleChange}
                   />
                   <i className="fas fa-image"></i>
                 </div>
                 <div className="groupe">
                   <label>Discount</label>
                   <input
-                    type="text"
+                    type="number"
                     autoComplete="off"
                     name="discount"
+                    onChange={handleChange}
                     placeholder="Enter discount"
                   />
                   <i className="fas fa-percent"></i>
@@ -99,13 +106,18 @@ const Add = () => {
                   <label>Description</label>
                   <textarea
                     name="description"
+                    onChange={handleChange}
                     placeholder="Enter product description"
                   ></textarea>
                 </div>
               </div>
 
               <div className="pied-formulaire">
-                <button className="btn" onClick={handleClick} >ADD Product</button>
+                <button className="btn" onClick={handleClick}>
+                  ADD Product
+                </button>
+                {error && "Something went wrong!"}
+                <br /><Link to="/">See all books</Link>
               </div>
             </div>
           </form>

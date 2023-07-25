@@ -8,7 +8,6 @@ import "./assets/css/style.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Link } from "react-router-dom";
 
-
 const Products = () => {
   // Create a useState hook to store the products data
   const [products, setProducts] = useState([]);
@@ -36,6 +35,8 @@ const Products = () => {
   };
 
   return (
+
+    // ****************************************************************
     <section className="products" id="products">
       <h1 className="heading">
         latest <span>products</span>{" "}
@@ -49,11 +50,7 @@ const Products = () => {
             <div className="icon">
               <a href="#" className="fas fa-eye"></a>
 
-              <Link
-                to={`/update/${product.id}`}
-              >
-                <a href="#" className="fas fa-edit" />
-              </Link>
+              <Link to={`/update/${product.id}`} className="fas fa-edit" />
               <a
                 href="#"
                 className="fas fa-trash"
@@ -82,14 +79,33 @@ const Products = () => {
             </div>
             <div className="quantity">
               <span>quantity :</span>
-              <input type="number" min="1" max="100" value={product.quantity} />
+              <input
+                type="number"
+                min="1"
+                max="100"
+                defaultValue={product.quantity}
+              />
               <span> /kg</span>
             </div>
-            <a href="#" className="btn">
+            {/* <a href="#" className="btn">
               add to cart
-            </a>
+            </a> */}
           </div>
         ))}
+
+        <div key={22} className="box2">
+          <Link to="/add">
+            <img
+              src={require("./assets/img/add-button.png")}
+              alt="add Product"
+              onError={(e) => (e.target.src = defaultImage)}
+            />
+          </Link>
+        </div>
+
+        {/* <button className="btn">
+          <Link to="/add">Add new book</Link>
+        </button> */}
       </div>
     </section>
   );

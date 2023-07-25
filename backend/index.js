@@ -36,23 +36,33 @@ app.get("/products", (req, res) => {
     return res.json(data);
   });
 });
+// Display one product
+app.get("/products/:id", (req, res) => {
+  const productId = req.params.id;
+  const q = "SELECT * FROM products WHERE id = ?";
+
+  db.query(q, [productId], (err, data) => {
+    if (err) return res.send(err);
+    if (data.length === 0) {
+      // If no product is found with the given ID, return a 404 status code and an error message
+      return res.status(404).json({ error: "Product not found" });
+    }
+    // Return the product data as JSON
+    return res.json(data[0]);
+  });
+});
+
 //add new Product
 app.post("/products", (req, res) => {
   const { name, price, quantity, image, discount, description } = req.body;
-
-  // Check if the "name" property is empty
-  if (!name) {
-    return res.status(400).json({ error: "Product name cannot be empty" });
-  }
 
   const q =
     "INSERT INTO products(`name`,`price`,`quantity`, `image`, `discount`,`description`) VALUES (?)";
 
   const values = [name, price, quantity, image, discount, description];
 
-  db.query(q, [values], (err, res) => {
+  db.query(q, [values], (err, data) => {
     if (err) return res.send(err);
-    //return res.json(data);
     return res.json("product has been created");
   });
 });
@@ -68,11 +78,10 @@ app.delete("/products/:id", (req, res) => {
   });
 });
 
-//update the product
+//ADD the product
 app.post("/products", (req, res) => {
-  const q = "INSERT INTO products (`name`, `price`, `quantity`, `image`, `discount`, `description`)VALUES (?)";
-  
-
+  const q =
+    "INSERT INTO products (`name`, `price`, `quantity`, `image`, `discount`, `description`)VALUES (?)";
 
   const values = [
     req.body.name,
@@ -86,5 +95,26 @@ app.post("/products", (req, res) => {
   db.query(q, [values], (err, data) => {
     if (err) return res.send(err);
     return res.json("product has been updated successfully.");
+  });
+});
+
+//update query
+app.put("/products/:id", (req, res) => {
+  const productId = req.params.id;
+  const q =
+    "UPDATE products SET `name`=?, `price`=?, `quantity`=?, `image`=?, `discount`=?, `description`=? WHERE id = ? ";
+
+  const values = [
+    req.body.name,
+    req.body.price,
+    req.body.quantity,
+    req.body.image,
+    req.body.discount,
+    req.body.description,
+  ];
+
+  db.query(q, [...values, productId], (err, data) => {
+    if (err) return res.send(err);
+    return res.json("Product has been updated successfully");
   });
 });

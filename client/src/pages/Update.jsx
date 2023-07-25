@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import "./assets/css/style.css";
@@ -14,12 +14,37 @@ const Update = () => {
     discount: null,
     description: "",
   });
-  const [error, setError] = useState(false);
 
+  const [error, setError] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-
   const productId = location.pathname.split("/")[2];
+  
+  const fetchProduct = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8000/products/" + productId
+      );
+      setProduct(response.data); // Set the fetched data as the initial state
+    } catch (err) {
+      console.log(err);
+      setError(true);
+      // Set default values for the product in case of an error or if the product is not found
+      setProduct({
+        name: "Default Name",
+        price: 0,
+        quantity: 0,
+        image: "",
+        discount: 0,
+        description: "Default Description",
+      });
+    }
+  };
+
+  useEffect(() => {
+    fetchProduct();
+  }, [productId]);
+
 
   const handleChange = (e) => {
     setProduct((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -29,7 +54,8 @@ const Update = () => {
     e.preventDefault();
 
     try {
-      await axios.put(`http://localhost:8000/products/${productId}`, product);
+      await axios.put("http://localhost:8000/products/" + productId, product);
+      // console.log(product);
       navigate("/");
     } catch (err) {
       console.log(err);
@@ -37,10 +63,9 @@ const Update = () => {
     }
   };
 
-
-  
   return (
     <section className="products" id="products">
+      {/* {console.log(product)} */}
       <h1 className="heading">
         Product <span>Update</span>{" "}
       </h1>
@@ -57,6 +82,9 @@ const Update = () => {
                   <input
                     type="text"
                     autoComplete="off"
+                    value={product.name || ""} // Set the value to the state value
+                    name="name"
+                    onChange={handleChange}
                     placeholder="Enter product name"
                   />
                   <i className="fas fa-box"></i>
@@ -66,6 +94,9 @@ const Update = () => {
                   <input
                     type="text"
                     autoComplete="off"
+                    value={product.price || 0}
+                    name="price"
+                    onChange={handleChange}
                     placeholder="Enter price"
                   />
                   <i className="fas fa-money-bill"></i>
@@ -75,6 +106,9 @@ const Update = () => {
                   <input
                     type="text"
                     autoComplete="off"
+                    value={product.quantity || 0}
+                    name="quantity"
+                    onChange={handleChange}
                     placeholder="Enter quantity"
                   />
                   <i className="fas fa-sort-numeric-up"></i>
@@ -85,7 +119,9 @@ const Update = () => {
                     type="text"
                     autoComplete="off"
                     name="image"
-                    placeholder="Enter image URL"
+                    value={product.image || ""}
+                    onChange={handleChange}
+                    placeholder="Enter your image URL"
                   />
                   <i className="fas fa-image"></i>
                 </div>
@@ -95,6 +131,8 @@ const Update = () => {
                     type="text"
                     autoComplete="off"
                     name="discount"
+                    value={product.discount || ""}
+                    onChange={handleChange}
                     placeholder="Enter discount"
                   />
                   <i className="fas fa-percent"></i>
@@ -103,13 +141,17 @@ const Update = () => {
                   <label>Description</label>
                   <textarea
                     name="description"
+                    value={product.description || ""}
+                    onChange={handleChange}
                     placeholder="Enter product description"
                   ></textarea>
                 </div>
               </div>
 
               <div className="pied-formulaire">
-                <button className="btn">Update Product</button>
+                <button className="btn" onClick={handleClick}>
+                  Update Product
+                </button>
               </div>
             </div>
           </form>
