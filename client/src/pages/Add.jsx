@@ -117,7 +117,7 @@ const Add = () => {
                   ADD Product
                 </button>
                 {error && "Something went wrong!"}
-                <br /><Link to="/">See all books</Link>
+                <br /><Link to="/">See all Products</Link>
               </div>
             </div>
           </form>

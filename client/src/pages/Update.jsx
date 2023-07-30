@@ -19,7 +19,7 @@ const Update = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const productId = location.pathname.split("/")[2];
-  
+
   const fetchProduct = async () => {
     try {
       const response = await axios.get(
@@ -45,7 +45,6 @@ const Update = () => {
     fetchProduct();
   }, [productId]);
 
-
   const handleChange = (e) => {
     setProduct((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -64,100 +63,115 @@ const Update = () => {
   };
 
   return (
-    <section className="products" id="products">
-      {/* {console.log(product)} */}
-      <h1 className="heading">
-        Product <span>Update</span>{" "}
-      </h1>
-      <img src={"./assets/img/category-1.png"} alt="" />
-      <div className="container2">
-        <section id="addProduct">
-          <form>
-            <h1>Add Product</h1>
-            <div className="separation"></div>
-            <div className="corps-formulaire">
-              <div className="gauche">
-                <div className="groupe">
-                  <label>Product Name</label>
-                  <input
-                    type="text"
-                    autoComplete="off"
-                    value={product.name || ""} // Set the value to the state value
-                    name="name"
-                    onChange={handleChange}
-                    placeholder="Enter product name"
-                  />
-                  <i className="fas fa-box"></i>
-                </div>
-                <div className="groupe">
-                  <label>Price</label>
-                  <input
-                    type="text"
-                    autoComplete="off"
-                    value={product.price || 0}
-                    name="price"
-                    onChange={handleChange}
-                    placeholder="Enter price"
-                  />
-                  <i className="fas fa-money-bill"></i>
-                </div>
-                <div className="groupe">
-                  <label>Quantity</label>
-                  <input
-                    type="text"
-                    autoComplete="off"
-                    value={product.quantity || 0}
-                    name="quantity"
-                    onChange={handleChange}
-                    placeholder="Enter quantity"
-                  />
-                  <i className="fas fa-sort-numeric-up"></i>
-                </div>
-                <div className="groupe">
-                  <label>Image URL</label>
-                  <input
-                    type="text"
-                    autoComplete="off"
-                    name="image"
-                    value={product.image || ""}
-                    onChange={handleChange}
-                    placeholder="Enter your image URL"
-                  />
-                  <i className="fas fa-image"></i>
-                </div>
-                <div className="groupe">
-                  <label>Discount</label>
-                  <input
-                    type="text"
-                    autoComplete="off"
-                    name="discount"
-                    value={product.discount || ""}
-                    onChange={handleChange}
-                    placeholder="Enter discount"
-                  />
-                  <i className="fas fa-percent"></i>
-                </div>
-                <div className="groupe">
-                  <label>Description</label>
-                  <textarea
-                    name="description"
-                    value={product.description || ""}
-                    onChange={handleChange}
-                    placeholder="Enter product description"
-                  ></textarea>
-                </div>
-              </div>
+    <body>
+      <div id="home"></div>
 
-              <div className="pied-formulaire">
-                <button className="btn" onClick={handleClick}>
-                  Update Product
-                </button>
+      <header>
+        <div class="header-1">
+          <a href="#" class="logo">
+            {" "}
+            <i class="fas fa-apple-alt"></i> StylShop{" "}
+          </a>
+        </div>
+      </header>
+
+      <section className="products" id="products">
+        {/* {console.log(product)} */}
+        <h1 className="heading">
+          Product <span>Update</span>{" "}
+        </h1>
+        <img src={"./assets/img/category-1.png"} alt="" />
+        <div className="container2">
+          <section id="addProduct">
+            <form>
+              <h1>Add Product</h1>
+              <div className="separation"></div>
+              <div className="corps-formulaire">
+                <div className="gauche">
+                  <div className="groupe">
+                    <label>Product Name</label>
+                    <input
+                      type="text"
+                      autoComplete="off"
+                      value={product.name || ""} // Set the value to the state value
+                      name="name"
+                      onChange={handleChange}
+                      placeholder="Enter product name"
+                    />
+                    <i className="fas fa-box"></i>
+                  </div>
+                  <div className="groupe">
+                    <label>Price</label>
+                    <input
+                      type="text"
+                      autoComplete="off"
+                      value={product.price || 0}
+                      name="price"
+                      onChange={handleChange}
+                      placeholder="Enter price"
+                    />
+                    <i className="fas fa-money-bill"></i>
+                  </div>
+                  <div className="groupe">
+                    <label>Quantity</label>
+                    <input
+                      type="text"
+                      autoComplete="off"
+                      value={product.quantity || 0}
+                      name="quantity"
+                      onChange={handleChange}
+                      placeholder="Enter quantity"
+                    />
+                    <i className="fas fa-sort-numeric-up"></i>
+                  </div>
+                  <div className="groupe">
+                    <label>Image URL</label>
+                    <input
+                      type="text"
+                      autoComplete="off"
+                      name="image"
+                      value={product.image || ""}
+                      onChange={handleChange}
+                      placeholder="Enter your image URL"
+                    />
+                    <i className="fas fa-image"></i>
+                  </div>
+                  <div className="groupe">
+                    <label>Discount</label>
+                    <input
+                      type="text"
+                      autoComplete="off"
+                      name="discount"
+                      value={product.discount || ""}
+                      onChange={handleChange}
+                      placeholder="Enter discount"
+                    />
+                    <i className="fas fa-percent"></i>
+                  </div>
+                  <div className="groupe">
+                    <label>Description</label>
+                    <textarea
+                      name="description"
+                      value={product.description || ""}
+                      onChange={handleChange}
+                      placeholder="Enter product description"
+                    ></textarea>
+                  </div>
+                </div>
+
+                <div className="pied-formulaire">
+                  <button className="btn" onClick={handleClick}>
+                    Update Product
+                  </button>
+                  <br />
+                  <Link to="/">See all Products</Link>
+                </div>
               </div>
-            </div>
-          </form>
-        </section>
-      </div>
-    </section>
+            </form>
+          </section>
+        </div>
+      </section>
+    </body>
   );
 };
 

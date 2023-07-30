@@ -3,9 +3,19 @@ import express from "express";
 import mysql from "mysql";
 import cors from "cors";
 
+
+
+
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// const express = require("express");
+// const path = require("path");
+
+// Serve static files from the 'assets' directory
+// app.use(express.static(path.join(__dirname, "assets")));
+
 
 // Start the server
 const port = 8000;
