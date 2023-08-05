@@ -1,3 +1,6 @@
+to run your react server install : 
+npm install
+
 install the client side : 
     npx create-react-app .
 
@@ -13,3 +16,8 @@ create folder "page" and put all pages you need "add.jsx" & "update.jsx"...
     Create a functional component: Type "rafce" and then press Tab.
 
 then set the root of creation pages in the "app.js" file
+
+*******************************************************************
+define all pages "n_page.jsx"
+define the route of the page in "App.js"
+display it in the "index.js" and enjoy

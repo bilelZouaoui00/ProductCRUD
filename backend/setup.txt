@@ -6,15 +6,15 @@ first install :
 create the main javascript file :
     index.js
     //code for initial lissner 
-    add after the main in the package.json --> "type": "module","
+    add after the main in the package.json --> "type": "module",
 
 run the backend : 
      node index.js
 
 Details :
-for the auto saving we add in "package.json" in "scripts"
+for the auto saving we add in 'package.json' in 'scripts'
     "start": "nodemon index.js"
-    the i start the server with "npm start"
+    the we start the server with "npm start"
 
 To allow front end application use the API from the server
     npm i cors

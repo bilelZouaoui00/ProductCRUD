@@ -9,6 +9,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Link } from "react-router-dom";
 
 const Products = () => {
+  //first argument :
   // Create a useState hook to store the products data
   const [products, setProducts] = useState([]);
 
@@ -22,12 +23,16 @@ const Products = () => {
         console.log(err);
       }
     };
+    //invoked when the product is fetched
     fetchAllProducts();
+    //second argument
+    //execute only once (action should happen only once) with no other dependency
   }, []);
 
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:8000/products/${id}`);
+      //reload the page
       window.location.reload();
     } catch (err) {
       console.log(err);
@@ -126,8 +131,12 @@ const Products = () => {
                 <i className="fas fa-star-half-alt"></i>
               </div>
               <div className="price">
-              ${(product.price - (product.price * (product.discount / 100))).toFixed(2)} <span>${product.price.toFixed(2)}</span>
-              
+                $
+                {(
+                  product.price -
+                  product.price * (product.discount / 100)
+                ).toFixed(2)}{" "}
+                <span>${product.price.toFixed(2)}</span>
               </div>
               <div className="quantity">
                 <span>quantity :</span>

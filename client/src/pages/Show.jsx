@@ -5,6 +5,7 @@ import defaultImage from "./assets/img/category-1.png"; // Import a default imag
 import Products from "./Products";
 
 const Show = () => {
+  //access the element passed in the URL
   const { productId } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
@@ -27,8 +28,9 @@ const Show = () => {
         console.log(err);
       }
     };
-
+    //to ensure fetching data
     fetchProduct();
+    //to ensure that the user effect will be re-execute whatever the product id change
   }, [productId]);
 
   const handleClick = () => {
@@ -74,10 +76,12 @@ const Show = () => {
             <div className="product-text">
               <h1>{product.name}</h1>
               <h2>Quantity : {product.quantity}</h2>
-              <p>{product.description}
-              <br></br><br></br>Discount : {product.discount}%
-              <br></br>
-              Discount Price : ${(product.price - (product.price * (product.discount / 100)))}
+              <p>
+                {product.description}
+                <br></br>
+                <br></br>Discount : {product.discount}%<br></br>
+                Discount Price : $
+                {product.price - product.price * (product.discount / 100)}
               </p>
             </div>
             <div className="product-price-btn">
